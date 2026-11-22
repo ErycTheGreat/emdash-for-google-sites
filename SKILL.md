@@ -25,6 +25,8 @@ Work through parts 00 to 03 in order. After each part, run its CHECK and show th
 ## Part 00 - setup (00-setup/README.md)
 - Before acting, explain the piece in one line using 00-setup/CONCEPTS.md (what it is, where it sits in the picture).
 - Before deploying the blog, confirm the binding names match in wrangler.jsonc and astro.config.mjs (00-setup/STORAGE.md).
+  After deploying, expect five bindings in the dashboard: DB, MEDIA, EMDASH_ROOMS, plus SESSION (KV) and IMAGES,
+  which the Astro adapter adds without a line in wrangler.jsonc. Do not "fix" their absence from the config.
 - Check Node.js >= 22.12. Run `npx wrangler login`.
 - A: guide the user through Google Sites > Settings > Custom domains; the DNS record must be proxied.
 - B: in `00-setup/sites-worker`, replace example.com, then `npx wrangler deploy` (ask first: live route).

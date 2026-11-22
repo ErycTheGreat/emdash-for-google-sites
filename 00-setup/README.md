@@ -42,8 +42,10 @@ When asked: **Where will you deploy? Cloudflare Workers**, then pick the **Blog*
 cd my-blog
 npm run deploy
 ```
-On the first deploy Wrangler creates the D1 database, R2 bucket and KV namespace the site uses
-(names come from `wrangler.jsonc`; do not rename them later, or the next deploy makes new, empty ones).
+On the first deploy Wrangler creates the D1 database and R2 bucket named in `wrangler.jsonc`
+(do not rename them later, or the next deploy makes new, empty ones). Astro's Cloudflare adapter
+also adds a KV namespace bound as `SESSION` and an `IMAGES` binding; expect five bindings in the
+dashboard (details: `STORAGE.md`).
 Open the `workers.dev` URL Wrangler prints and go to `/_emdash/admin/` to finish the setup wizard
 (create the admin account).
 

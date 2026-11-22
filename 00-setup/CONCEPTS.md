@@ -15,6 +15,7 @@ visitor
                                      +-- binding DB           -> D1 database (posts, users, settings)
                                      +-- binding MEDIA        -> R2 bucket   (images, files)
                                      +-- binding EMDASH_ROOMS -> Durable Object (live co-editing rooms)
+                                     +-- SESSION (KV), IMAGES -> added by Astro's Cloudflare adapter
 ```
 
 ## Config flow (where you set each piece)
