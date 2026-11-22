@@ -19,7 +19,10 @@ function unwrapOwnLinks(rewriter) {
             const u = new URL(value);
             if (u.hostname !== "www.google.com" || u.pathname !== "/url") continue;
             const target = u.searchParams.get("q");
-            if (target && new URL(target).hostname.endsWith(OWN_DOMAIN)) el.setAttribute(attr, target);
+            if (!target) continue;
+            const host = new URL(target).hostname;
+            // exact match or a real subdomain; plain endsWith() would also accept "badexample.com"
+            if (host === OWN_DOMAIN || host.endsWith("." + OWN_DOMAIN)) el.setAttribute(attr, target);
           } catch (_) {}
         }
       },
