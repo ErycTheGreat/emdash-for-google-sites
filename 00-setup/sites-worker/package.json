@@ -1,0 +1,13 @@
+{
+  "name": "sites-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/local-test.mjs",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "miniflare": "^3",
+    "wrangler": "^4"
+  }
+}

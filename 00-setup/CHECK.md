@@ -1,5 +1,9 @@
 # Check: setup done
 
+Before deploying, test the edge Worker locally (no account needed):
+`cd 00-setup/sites-worker && npm install && npm test`. Expected: `wrappedOwnLeft: 0`, own links unwrapped,
+external link still wrapped, `asset_untouched: true`.
+
 | Test | Expected |
 |---|---|
 | `curl -sI https://www.example.com/` | `200`, your Google Site |
