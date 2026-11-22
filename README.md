@@ -9,10 +9,10 @@ All names, domains and brand values here are placeholders (`example.com`).
 
 | Folder | What you get | Post |
 |---|---|---|
-| [`00-setup`](00-setup) | Google Sites on your domain, an edge Worker in front, a fresh EmDash blog (D1, R2) | all |
-| [`01-redirect-fix`](01-redirect-fix) | Remove the white "Redirecting you to..." page on links to your own domain | Post 1 |
-| [`02-blog-on-sites-domain`](02-blog-on-sites-domain) | Serve EmDash at `www.example.com/blog` next to Google Sites | Post 2 |
-| [`03-match-sites-theme`](03-match-sites-theme) | Make the blog's header, drawer and footer match Sites | Post 3 |
+| [`00-setup`](00-setup) | Google Sites on your domain, an edge Worker in front, a fresh EmDash blog (D1, R2) | [Part 0](https://www.eryc.my.id/blog/posts/add-a-blog-to-google-sites-emdash-cloudflare) |
+| [`01-redirect-fix`](01-redirect-fix) | Remove the white "Redirecting you to..." page on links to your own domain | [Part 1](https://www.eryc.my.id/blog/posts/google-sites-redirecting-you-white-page-fix) |
+| [`02-blog-on-sites-domain`](02-blog-on-sites-domain) | Serve EmDash at `www.example.com/blog` next to Google Sites | [Part 2](https://www.eryc.my.id/blog/posts/blog-on-google-sites-domain-cloudflare-workers) |
+| [`03-match-sites-theme`](03-match-sites-theme) | Make the blog's header, drawer and footer match Sites | [Part 3](https://www.eryc.my.id/blog/posts/match-google-sites-header-footer-motion-in-a-cms) |
 
 Each folder has a `CHECK.md`: the command or test that proves the step worked, with the expected result.
 
