@@ -1,5 +1,6 @@
-// Copy into your EmDash project's wrangler.jsonc. Replace example.com and the resource names.
-// No account, zone, D1 or R2 IDs are needed here: wrangler looks them up by name.
+// What to MERGE into the wrangler.jsonc that `npm create emdash` made for you (part 00).
+// Keep your project's own name and D1/R2/KV bindings exactly as generated; add the routes below.
+// Replace example.com. No account or zone IDs needed: `npx wrangler login` handles auth.
 {
   "name": "my-blog",
   "main": "./src/worker.ts",

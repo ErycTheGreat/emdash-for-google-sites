@@ -1,37 +1,49 @@
 ---
 name: emdash-for-google-sites
-description: Add an EmDash blog under /blog on a Google Sites custom domain with Cloudflare Workers, remove the Google Sites redirect page for own-domain links, and match the blog's header/drawer/footer to Sites. Use when someone runs a Google Sites site on Cloudflare and wants a blog or CMS on the same domain.
+description: Set up an EmDash blog (Cloudflare Workers, D1, R2) under /blog on a Google Sites custom domain, from zero, including Cloudflare login, the edge Worker in front of Google Sites, removing the Google Sites redirect page for own-domain links, and matching the blog's header/drawer/footer to Sites. Use when someone runs a Google Sites site and wants a blog or CMS on the same domain.
 ---
 
 # EmDash for Google Sites
 
-Apply one part at a time. After each part, run its CHECK and show the result before continuing.
+Work through parts 00 to 03 in order. After each part, run its CHECK and show the result before continuing.
+
+## Rules
+- Auth only through `npx wrangler login`. Never ask for, print or write API tokens, account IDs,
+  zone IDs or passwords into any file or message.
+- Before changing DNS, a Workers route on a live domain, or deploying to a live hostname, say exactly
+  what will change and wait for the user's yes.
+- Use the user's own names and values. Do not copy another site's branding or design.
+- If a CHECK fails, stop, show the output, and fix that part before moving on.
 
 ## Ask first
-1. The Google Sites hostname (e.g. `www.example.com`) and the zone (`example.com`).
-2. The blog's own hostname (e.g. `blog.example.com`).
-3. Where the existing Sites proxy Worker lives (repo or Cloudflare dashboard).
-4. Which parts they want: 01, 02, 03.
-Never ask for or write API tokens, account IDs or passwords into files. Use `wrangler login`.
+1. The Google Sites hostname (e.g. `www.example.com`) and the Cloudflare zone (`example.com`).
+2. Whether the domain's DNS is already on Cloudflare and the Site already uses this custom domain.
+3. The blog's own hostname, if any (e.g. `blog.example.com`), or use the workers.dev URL.
+4. Whether a Worker already sits on `www.example.com/*` (then merge into it instead of part 00 B).
+5. Which parts they want.
+
+## Part 00 - setup (00-setup/README.md)
+- Check Node.js >= 22.12. Run `npx wrangler login`.
+- A: guide the user through Google Sites > Settings > Custom domains; the DNS record must be proxied.
+- B: in `00-setup/sites-worker`, replace example.com, then `npx wrangler deploy` (ask first: live route).
+- C: `npm create emdash@latest -- my-blog` (Cloudflare Workers, Blog template), `npm run deploy`;
+  the first deploy creates D1, R2 and KV. Send the user to `/_emdash/admin/` to finish the wizard.
+- Run `00-setup/CHECK.md`.
 
 ## Part 01 - redirect fix
-- Add `unwrapOwnLinks()` from `01-redirect-fix/worker-snippet.js` to the Sites proxy Worker.
-  Set `OWN_DOMAIN`. Apply it only to `text/html` responses.
-- Run `01-redirect-fix/CHECK.md`. Expected: 0 wrapped own-domain links.
+- Already inside `00-setup/sites-worker`. For an existing Worker, add `unwrapOwnLinks()` from
+  `01-redirect-fix/worker-snippet.js` to its HTML responses. Run `01-redirect-fix/CHECK.md`.
 
 ## Part 02 - blog under /blog
-- In the EmDash project, replace `src/worker.ts` with `02-blog-on-sites-domain/worker.ts`;
-  set `BLOG_HOST` and `PUBLIC_HOST`.
-- Merge the `routes` from `wrangler.example.jsonc` into `wrangler.jsonc` (keep the user's
-  existing bindings). Deploy with `npx wrangler deploy` or their Git deploy.
-- Run every row of `02-blog-on-sites-domain/CHECK.md`. Stop and report any mismatch.
+- Replace the blog's `src/worker.ts` with `02-blog-on-sites-domain/worker.ts`; set `BLOG_HOST`, `PUBLIC_HOST`.
+- Add the routes from `wrangler.example.jsonc` to the blog's `wrangler.jsonc`, keeping its generated
+  bindings. Ask first, then `npm run deploy`. Run every row of `02-blog-on-sites-domain/CHECK.md`.
 
 ## Part 03 - match the Sites look
-- Read the values from the user's own Sites stylesheet (see `03-match-sites-theme/README.md`);
-  do not copy another site's design. Put tokens in `src/styles/theme.css`.
-- Replace the header in `src/layouts/Base.astro` with `Header.example.astro` (adapted links,
-  brand), append `header.example.css`, reuse their footer embeds as in `Footer.example.astro`.
-- Run `03-match-sites-theme/CHECK.md` at 412 px. Report any visible difference.
+- Read values from the user's own Sites stylesheet (`03-match-sites-theme/README.md`).
+- Tokens into `src/styles/theme.css`; header from `Header.example.astro` into `src/layouts/Base.astro`;
+  append `header.example.css`; reuse their footer embeds as in `Footer.example.astro`.
+- Run `03-match-sites-theme/CHECK.md` at 412 px.
 
 ## Done when
-All requested CHECKs pass. Tell the user what changed, which files, and the Limits in README.md.
+All requested CHECKs pass. Tell the user what changed, in which files, and the Limits in README.md.

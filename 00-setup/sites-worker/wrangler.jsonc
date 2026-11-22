@@ -1,0 +1,10 @@
+// The edge Worker in front of Google Sites. Replace example.com.
+// No account ID or token here: `npx wrangler login` handles auth.
+{
+  "name": "sites-worker",
+  "main": "./src/index.js",
+  "compatibility_date": "2026-02-24",
+  // Catches every page of the Sites domain. Part 02 adds more specific /blog routes
+  // to the blog Worker; the more specific route wins.
+  "routes": [{ "pattern": "www.example.com/*", "zone_name": "example.com" }]
+}
