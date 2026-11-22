@@ -1,9 +1,9 @@
 ---
-name: emdash-on-google-sites
+name: emdash-for-google-sites
 description: Add an EmDash blog under /blog on a Google Sites custom domain with Cloudflare Workers, remove the Google Sites redirect page for own-domain links, and match the blog's header/drawer/footer to Sites. Use when someone runs a Google Sites site on Cloudflare and wants a blog or CMS on the same domain.
 ---
 
-# EmDash on Google Sites
+# EmDash for Google Sites
 
 Apply one part at a time. After each part, run its CHECK and show the result before continuing.
 

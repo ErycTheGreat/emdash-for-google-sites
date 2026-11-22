@@ -1,4 +1,4 @@
-# EmDash on Google Sites
+# EmDash for Google Sites™
 
 Add a real blog to a Google Sites website, on the same domain, with Cloudflare Workers and
 [EmDash](https://emdashcms.com/) (an Astro-based CMS that runs on Workers, D1 and R2).
@@ -32,7 +32,7 @@ Each folder has a `CHECK.md`: the command or test that proves the step worked, w
 ## Use it with an AI agent
 
 [`SKILL.md`](SKILL.md) turns these steps into instructions an agent (e.g. Claude Code) can follow:
-"Use the emdash-on-google-sites skill to put a blog at /blog on my Google Sites domain."
+"Use the emdash-for-google-sites skill to put a blog at /blog on my Google Sites domain."
 The agent asks for your domains, applies one part at a time and runs each CHECK.
 
 ## Limits
@@ -40,5 +40,8 @@ The agent asks for your domains, applies one part at a time and runs each CHECK.
 - Google can change Sites markup and CSS at any time; parts 01 and 03 depend on it.
 - Tested on one production site (desktop Chrome, a 412 px mobile frame). Not tested: Safari,
   Firefox, physical phones.
+
+Google Sites is a trademark of Google LLC. This project is not affiliated with or endorsed by Google.
+Unofficial: Google can change Sites at any time and break parts 01 and 03.
 
 Written by Eryc Tri Juni S, Edge SEO & GEO Specialist (https://www.eryc.my.id/about). MIT licence.
