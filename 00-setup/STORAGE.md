@@ -28,8 +28,9 @@ Check: Cloudflare dashboard > Workers & Pages > your blog > **Bindings** lists `
 
 **Automatic (default).** `npm run deploy` creates the D1 database and R2 bucket named in
 `wrangler.jsonc` on the first deploy. Do not rename them later, or the next deploy creates new,
-empty ones. (Some template versions also create a KV namespace; others, like the one this repo
-was built from, have none.)
+empty ones. Astro's Cloudflare adapter also adds two bindings that are not in `wrangler.jsonc`:
+`SESSION` (a KV namespace for Astro sessions) and `IMAGES` (Cloudflare Images). Both are adapter
+defaults (`@astrojs/cloudflare` 14.4.9); expect five bindings in the dashboard, not three.
 
 **Manual** (fixed names, or reuse an existing database), as in EmDash's Cloudflare guide:
 
