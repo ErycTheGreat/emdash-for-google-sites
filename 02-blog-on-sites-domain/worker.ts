@@ -31,6 +31,20 @@ const fixAbs = (v: string | null) =>
 const fix = (v: string) => fixAbs(fixPath(v)) as string;
 const fixSrcset = (v: string) => v.replace(/(^|,\s*)\/(?!\/)/g, "$1" + PREFIX + "/");
 
+// JSON-LD lives in script text, which attribute handlers never see. Buffer it, then rewrite
+// every https://BLOG_HOST URL (with or without a trailing slash) to the /blog address.
+const jsonLd = () => {
+  let buf = "";
+  return {
+    text(t: Text) {
+      buf += t.text;
+      if (!t.lastInTextNode) { t.remove(); return; }
+      t.replace(buf.split("https://" + BLOG_HOST).join("https://" + PUBLIC_HOST + PREFIX), { html: true });
+      buf = "";
+    },
+  };
+};
+
 async function serveUnderMainSite(request: Request, env: unknown, ctx: ExecutionContext): Promise<Response> {
   const url = new URL(request.url);
   const target = new URL(request.url);
@@ -66,6 +80,7 @@ async function serveUnderMainSite(request: Request, env: unknown, ctx: Execution
       .on("[poster]", attr("poster", fix))
       .on("[srcset]", attr("srcset", fixSrcset))
       .on("meta[content^='https://" + BLOG_HOST + "']", attr("content", fix))
+      .on('script[type="application/ld+json"]', jsonLd())
       .transform(new Response(res.body, { status: res.status, headers: out }));
   }
   if (type.includes("xml")) {
