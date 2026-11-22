@@ -1,6 +1,8 @@
 # 00 - Setup: Google Sites on your domain, a Worker in front, an EmDash blog
 
-Do this once. It takes about 30 minutes. Everything runs on Cloudflare's free plan
+It takes about 30 minutes. New to Cloudflare? Read [CONCEPTS.md](CONCEPTS.md) first (the picture and the words), and [STORAGE.md](STORAGE.md) for D1/R2 bindings, limits and backups.
+
+Do this once. Everything runs on Cloudflare's free plan
 (sandboxed EmDash plugins need Workers Paid; this setup does not use them).
 
 ## You need
