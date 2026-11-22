@@ -1,0 +1,10 @@
+---
+// Step 5 - reuse your Google Sites footer embeds instead of rebuilding them.
+// Put each embed's HTML in src/embeds/ and import it as a string with ?raw.
+import footerEmbed from "../embeds/footer-example.html?raw";
+---
+<footer class="site-footer">
+  <!-- srcdoc renders the same HTML Sites shows in its embed iframe -->
+  <iframe title="Footer" srcdoc={footerEmbed} loading="lazy" style="width:100%;aspect-ratio:379.3/206.7;border:0"></iframe>
+  <small>© {new Date().getFullYear()} Your Name</small>
+</footer>

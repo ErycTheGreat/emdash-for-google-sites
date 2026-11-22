@@ -1,0 +1,35 @@
+/* Step 4 - mobile header, drawer and burger, using the values read from Google Sites.
+   Selectors match Header.example.astro. */
+.site-header { position: sticky; top: 0; z-index: 70; height: 56px; display: flex; align-items: center; }
+.nav-toggle, .nav-scrim { display: none; }
+
+@media (max-width: 767px) {
+  .nav-toggle { display: grid; place-items: center; width: 48px; height: 56px; padding: 0; border: 0;
+    background: none; color: var(--sites-text); cursor: pointer; }
+  .brand__logo { width: 40px; height: 40px; }
+
+  /* drawer */
+  .site-nav { position: fixed; top: 56px; left: 0; bottom: 0; width: 250px; background: var(--sites-header);
+    transform: translateX(-100%); transition: transform .5s cubic-bezier(.4,0,.2,1); z-index: 70; }
+  body.nav-open .site-nav { transform: none; }
+  .site-nav a { display: block; font-size: 16px; line-height: 21px; padding: 4px 16px; border-left: 8px solid transparent; }
+  .site-nav a[aria-current="page"] { border-left-color: var(--sites-accent); font-weight: 700; }
+
+  /* scrim */
+  .nav-scrim { display: block; position: fixed; inset: 56px 0 0 0; background: rgba(0,0,0,.6);
+    opacity: 0; visibility: hidden; transition: opacity .5s, visibility .5s; z-index: 65; }
+  body.nav-open .nav-scrim { opacity: 1; visibility: visible; }
+
+  /* burger morph: the svg turns, the bars cross */
+  .burger { transition: transform .45s cubic-bezier(.4,0,.2,1); transform-origin: 50% 50%; }
+  body.nav-open .burger { transform: rotate(90deg); }
+  .burger path { transform-box: view-box; transform-origin: 0 0; transition: transform .45s cubic-bezier(.4,0,.2,1); }
+  body.nav-open .burger .b1 { transform: rotate(45deg) translateY(5px); }
+  body.nav-open .burger .b2 { transform: rotate(135deg); opacity: 0;
+    transition: all .45s cubic-bezier(.4,0,.2,1), opacity .45s .45s; }
+  body.nav-open .burger .b3 { transform: rotate(135deg) translateY(-5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav, .nav-scrim, .burger, .burger path { transition-duration: .01s !important; }
+}

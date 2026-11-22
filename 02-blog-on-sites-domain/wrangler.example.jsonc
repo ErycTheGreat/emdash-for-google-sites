@@ -1,0 +1,22 @@
+// Copy into your EmDash project's wrangler.jsonc. Replace example.com and the resource names.
+// No account, zone, D1 or R2 IDs are needed here: wrangler looks them up by name.
+{
+  "name": "my-blog",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-02-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [{ "binding": "DB", "database_name": "my-blog" }],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "my-blog-media" }],
+  "durable_objects": { "bindings": [{ "name": "EMDASH_ROOMS", "class_name": "EmDashRoom" }] },
+  "exports": { "EmDashRoom": { "type": "durable-object", "storage": "sqlite" } },
+  // More specific than the Google Sites proxy route (www.example.com/*), so these win.
+  "routes": [
+    { "pattern": "www.example.com/blog", "zone_name": "example.com" },
+    { "pattern": "www.example.com/blog/*", "zone_name": "example.com" },
+    { "pattern": "www.example.com/_emdash/*", "zone_name": "example.com" },
+    { "pattern": "www.example.com/_astro/*", "zone_name": "example.com" },
+    // the blog's own host (optional custom domain)
+    { "pattern": "blog.example.com", "custom_domain": true }
+  ],
+  "triggers": { "crons": ["*/5 * * * *"] }
+}

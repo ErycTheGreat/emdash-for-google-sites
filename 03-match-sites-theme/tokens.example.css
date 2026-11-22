@@ -1,0 +1,10 @@
+/* Step 2 - your Google Sites theme tokens. DUMMY values: replace with your own. */
+:root {
+  --sites-page: #10131a;   /* page background */
+  --sites-header: #161b26; /* header / footer band */
+  --sites-text: #f5f5f5;
+  --sites-accent: #3fa7ff; /* current-page marker */
+  --font-body: "Your Sites Font", system-ui, sans-serif;
+}
+body { background: var(--sites-page); color: var(--sites-text); font-family: var(--font-body); }
+.site-header { background: var(--sites-header); }
